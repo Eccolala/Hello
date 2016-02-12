@@ -187,13 +187,15 @@ public class MainActivity extends AppCompatActivity {
 
             //复制一个listBean 出来，否则不会显示删除的课程
             List<DataBean> listCopy = new ArrayList<DataBean>();
-                listCopy.addAll(listBean);
+            for (int i = 0; i < listBean.size();i++){
+                listCopy.add(listBean.get(i));
+            }
 
             //计算学分绩点
             Calpoints2 calpoints = new Calpoints2();
             List<String> beginLisdt;
             beginLisdt = calpoints.remoData(listCopy);
-            double bsum = calpoints.calTotPoints(listBean);
+            double bsum = calpoints.calTotPoints(listCopy);
             double end = calpoints.calculatePoint(listCopy, beginLisdt,bsum);
             String sTitle = "本学期绩点：";
             mToolbar.setTitle(sTitle + end);

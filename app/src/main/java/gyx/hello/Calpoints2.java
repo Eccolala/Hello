@@ -71,7 +71,9 @@ public class Calpoints2 {
             atemp = (tr2- 50)/10*td;
             asum += atemp;
             //bsum += td;
+
         }
+
         return asum/bsum;
     }
 
