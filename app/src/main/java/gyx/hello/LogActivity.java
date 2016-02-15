@@ -27,6 +27,7 @@ public class LogActivity extends AppCompatActivity {
     private CheckBox rememberPass;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
+    private List<String> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,21 +45,15 @@ public class LogActivity extends AppCompatActivity {
         if (isRemember){
             String account = pref.getString("account","");
             String password = pref.getString("password","");
+
+
             txtNum.setText(account);
             txtPwd.setText(password);
             rememberPass.setChecked(true);
         }
 
 
-
-
-
-
-
-
-
-
-        final List<String> list = new ArrayList<String>();
+         list = new ArrayList<String>();
 
         list.add("2013-2014-1");
         list.add("2013-2014-2");
@@ -111,9 +106,9 @@ public class LogActivity extends AppCompatActivity {
         bundle.putSerializable("user", user);
         intent.putExtras(bundle);
         this.startActivity(intent);
-
-
-
     }
+
+
+
 }
 

@@ -12,12 +12,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.melnykov.fab.FloatingActionButton;
+
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         recyclerView = (RecyclerView) findViewById(R.id.id_recycler);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.attachToRecyclerView(recyclerView);
 
         Intent intent = this.getIntent();
         user=(User)intent.getSerializableExtra("user");
@@ -64,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
         private String html = "http://202.195.206.35:8080/jsxsd/xk/LoginToXk";
         private String html3 = "http://202.195.206.35:8080/jsxsd/kscj/cjcx_list";
         private Map<String, String> map = new HashMap<String, String>();
-        private List<DataBean> listBean = new ArrayList<DataBean>();
+        private final List<DataBean> listBean = new ArrayList<DataBean>();
+        private Bundle bundle2;
         private List<DataBean> listTemp;
 
 
@@ -152,6 +158,9 @@ public class MainActivity extends AppCompatActivity {
                     listBean.add(bean);
                 }
 
+                 bundle2 = new Bundle();
+                bundle2.putSerializable("list", (Serializable)listBean);
+
                 String quary = user.getDate();
                 listTemp = new ArrayList<DataBean>();
                 for (int i = 0;i<listBean.size();i++){
@@ -174,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         @Override
-        protected void onPostExecute(List<DataBean> listBean) {
+        protected void onPostExecute(final List<DataBean> listBean) {
             super.onPostExecute(listBean);
 
             recyclerAdapter = new RecyclerAdapter(MainActivity.this, listBean);
@@ -200,7 +209,21 @@ public class MainActivity extends AppCompatActivity {
             String sTitle = "本学期绩点：";
             mToolbar.setTitle(sTitle + end);
 
+
             progressBar.setVisibility(View.GONE);
+
+
+           FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //发送listBean到绩点activity
+                    Intent intent2 = new Intent();
+                    intent2.setClass(MainActivity.this, PointActivity.class);
+                    intent2.putExtras(bundle2);
+                    startActivity(intent2);
+                }
+            });
         }
     }
 

@@ -37,7 +37,7 @@ public class Calpoints2 {
             String tr = listTemp.get(i).getGrade();
             TransToDouble transToInt = new TransToDouble();
             double tr2 = transToInt.transtoInt(tr);
-            if(tr2<=50) {
+            if(tr2<60) {
                 listRemove.add(listTemp.get(i).getSubName());
             }
         }

@@ -1,8 +1,9 @@
 package gyx.hello;
 
 
+import java.io.Serializable;
 
-public class DataBean {
+public class DataBean implements Serializable {
     private String order;
     private String date;
     private String classNum;
