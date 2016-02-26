@@ -7,6 +7,7 @@ public class TransToDouble {
     private String zhong = "中";
     private String fail = "不及格";
     private String pass = "通过";
+    private String sixty = "及格";
 
 
 
@@ -21,6 +22,8 @@ public class TransToDouble {
             return 50;
         }else if(grade.equals(pass)){
             return 85;
+        }else if(grade.equals(sixty)){
+            return 60;
         }else {
             return Double.parseDouble(grade);
         }
